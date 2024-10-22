@@ -29,4 +29,20 @@ export const sampleQuizzes = [
       },
     ],
   },
+  {
+    name: "Python",
+    questions: [
+      {
+        questionText:
+          "Which of the following is used to define a block of code (like a function or loop) in Python?",
+        options: [
+          "Curly braces {}",
+          "Parentheses ()",
+          "Indentation",
+          "Semicolons ;",
+        ],
+        correctAnswers: ["Indentation"],
+      },
+    ],
+  },
 ];

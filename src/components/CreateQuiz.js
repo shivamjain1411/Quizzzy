@@ -28,6 +28,11 @@ const CreateQuiz = () => {
   // Validation function to ensure all necessary fields are filled
   const handleSubmitQuiz = () => {
     // Check if quiz name is present
+    if (questions.length == 0) {
+      alert("Cannot submit quiz with 0 questions.");
+      setNumQuestions(1);
+      return; // Exit the function if there are no existing questions
+    }
     if (!quizName.trim()) {
       alert("Please provide a quiz name.");
       return;
