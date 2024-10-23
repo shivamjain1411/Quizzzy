@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import ResultPage from "./ResultPage";
 
-// Utility function to shuffle array and select a subset
 const shuffleArray = (array) => {
   for (let i = array.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
@@ -14,7 +13,7 @@ const shuffleArray = (array) => {
 const TakeQuiz = ({ questions, timePerQuestion }) => {
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [answers, setAnswers] = useState([]);
-  const [timeLeft, setTimeLeft] = useState(timePerQuestion); // Timer state
+  const [timeLeft, setTimeLeft] = useState(timePerQuestion);
   const [showResults, setShowResults] = useState(false);
   const [score, setScore] = useState(0);
   const [selectedAnswerArray, setSelectedAnswerArray] = useState([]);
@@ -23,19 +22,16 @@ const TakeQuiz = ({ questions, timePerQuestion }) => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    // Shuffle and select a subset of questions (e.g., 10 random questions)
     const shuffledQuestions = shuffleArray(questions).slice(0, 10);
     setRandomQuestions(shuffledQuestions);
   }, [questions]);
 
-  const current = randomQuestions[currentQuestion]; // Get current question
+  const current = randomQuestions[currentQuestion];
 
-  // Function to handle option selection
   const handleOptionChange = (e, option) => {
     const selectedOptions = answers[currentQuestion] || [];
 
     if (current.allowMultipleCorrect) {
-      // Handle checkboxes for multiple correct answers
       if (e.target.checked) {
         setAnswers({
           ...answers,
@@ -48,7 +44,6 @@ const TakeQuiz = ({ questions, timePerQuestion }) => {
         });
       }
     } else {
-      // Handle radio buttons for single correct answer
       setAnswers({
         ...answers,
         [currentQuestion]: [option],
@@ -56,36 +51,34 @@ const TakeQuiz = ({ questions, timePerQuestion }) => {
     }
   };
 
-  // Handle next question logic
   const handlePrevious = () => {
     if (currentQuestion > 0) {
       setCurrentQuestion(currentQuestion - 1);
-      setTimeLeft(timePerQuestion); // Reset the timer for the next question
-    }
-  };
-  const handleNext = () => {
-    if (currentQuestion < randomQuestions.length - 1) {
-      setCurrentQuestion(currentQuestion + 1);
-      setTimeLeft(timePerQuestion); // Reset the timer for the next question
-    } else {
-      handleFinish(); // Finish the quiz if on the last question
+      setTimeLeft(timePerQuestion);
     }
   };
 
-  // Timer logic for auto-advancing to the next question
+  const handleNext = () => {
+    if (currentQuestion < randomQuestions.length - 1) {
+      setCurrentQuestion(currentQuestion + 1);
+      setTimeLeft(timePerQuestion);
+    } else {
+      handleFinish();
+    }
+  };
+
   useEffect(() => {
     if (timeLeft === 0) {
-      handleNext(); // Auto-advance when time runs out
+      handleNext();
     }
 
     const timer = setInterval(() => {
       setTimeLeft((prevTime) => (prevTime > 0 ? prevTime - 1 : 0));
     }, 1000);
 
-    return () => clearInterval(timer); // Clean up the timer on component unmount
-  }, [timeLeft]); // Re-run effect when `timeLeft` changes
+    return () => clearInterval(timer);
+  }, [timeLeft]);
 
-  // Handle finish logic
   const handleFinish = () => {
     let calculatedScore = 0;
     let wrongQuestions = [];
@@ -94,18 +87,10 @@ const TakeQuiz = ({ questions, timePerQuestion }) => {
       const selectedAnswer = answers[index] || [];
       const correctAnswers = question.correctAnswers;
 
-      console.log("Question:", question.questionText);
-      console.log("Selected Answer:", selectedAnswer);
-      console.log("Correct Answers:", correctAnswers);
-
       if (question.allowMultipleCorrect) {
-        // Sort both arrays to ignore order
         const sortedSelectedAnswer = selectedAnswer.slice().sort();
         const sortedCorrectAnswers = correctAnswers.slice().sort();
-        console.log(sortedCorrectAnswers, "sorted correct");
-        console.log(sortedSelectedAnswer, "sorted selected");
 
-        // Check if the lengths match and the contents are the same
         const allCorrect =
           sortedSelectedAnswer.length === sortedCorrectAnswers.length &&
           sortedSelectedAnswer.every(
@@ -122,7 +107,6 @@ const TakeQuiz = ({ questions, timePerQuestion }) => {
           });
         }
       } else {
-        // Single answer case
         if (selectedAnswer[0] === correctAnswers[0]) {
           calculatedScore += 1;
         } else {
@@ -135,14 +119,10 @@ const TakeQuiz = ({ questions, timePerQuestion }) => {
       }
     });
 
-    // Update the state after the loop
     setWrongQuestionArray(wrongQuestions);
     setSelectedAnswerArray(answers);
-
     setScore(calculatedScore);
     setShowResults(true);
-
-    console.log("Questions you got wrong:", wrongQuestions);
   };
 
   if (showResults) {
@@ -158,9 +138,6 @@ const TakeQuiz = ({ questions, timePerQuestion }) => {
               ? q.correctAnswers.join(", ")
               : q.correctAnswers[0],
           }))}
-          // userAnswers={Object.values(answers).map((ans) =>
-          //   Array.isArray(ans) ? ans.join(", ") : ans
-          // )}
           userAnswers={selectedAnswerArray}
         />
       </div>
@@ -168,10 +145,10 @@ const TakeQuiz = ({ questions, timePerQuestion }) => {
   }
 
   return (
-    <div className="flex flex-col justify-center items-center bg-gray-100 mx-20 rounded-md py-4">
+    <div className="flex flex-col justify-center items-center bg-gray-100 mx-4 sm:mx-6 md:mx-20 rounded-md py-4">
       {randomQuestions.length > 0 && (
-        <div className="border border-gray-300 w-11/12 md:w-6/12 lg:w-4/12 bg-white shadow-lg rounded-lg p-6">
-          <h2 className="text-2xl font-bold mb-6 text-center text-blue-600">
+        <div className="border border-gray-300 w-full sm:w-10/12 md:w-7/12 lg:w-5/12 xl:w-4/12 bg-white shadow-lg rounded-lg p-6">
+          <h2 className="text-xl sm:text-2xl font-bold mb-6 text-center text-blue-600">
             Take the Quiz
           </h2>
 
@@ -182,13 +159,12 @@ const TakeQuiz = ({ questions, timePerQuestion }) => {
           </div>
 
           <div className="mb-6">
-            <p className="font-semibold text-lg text-gray-800 mb-4 text-center">
+            <p className="font-semibold text-base sm:text-lg text-gray-800 mb-4 text-center">
               {current.questionText}
             </p>
 
             <div className="options space-y-3">
               {current.options.map((option, index) => {
-                // Generate a unique ID for each option
                 const optionId = `option-${currentQuestion}-${index}`;
                 return (
                   <div
@@ -240,6 +216,7 @@ const TakeQuiz = ({ questions, timePerQuestion }) => {
               Time Left: {timeLeft} seconds
             </p>
           </div>
+
           <div className="flex justify-between">
             <div>
               {currentQuestion > 0 ? (
