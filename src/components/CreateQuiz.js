@@ -116,115 +116,129 @@ const CreateQuiz = () => {
   };
 
   return (
-    <div className="container mx-auto p-4">
-      <h2 className="text-xl font-bold mb-4">Create Your Quiz</h2>
+    <div className="container mx-auto p-4 flex flex-col items-center justify-center">
+      <h1 className="text-4xl mb-6">Quiz Builder</h1>
+      <div className=" flex flex-col justify-start px-8 pb-4 shadow-2xl w-5/12 pt-2  rounded-lg">
+        <h2 className="text-2xl font-bold mb-4">Create Your Custom Quiz</h2>
 
-      <input
-        type="text"
-        className="border rounded p-2 w-full mb-4"
-        placeholder="Quiz Name"
-        value={quizName}
-        onChange={(e) => setQuizName(e.target.value)}
-      />
-
-      <div className="mb-4">
-        <label className="block mb-2">Number of Questions:</label>
         <input
-          type="number"
-          className="border rounded p-2"
-          value={numQuestions}
-          onChange={(e) => setNumQuestions(Number(e.target.value))} // Convert to number
+          type="text"
+          className="border rounded p-2 mb-4"
+          placeholder="Quiz Name"
+          value={quizName}
+          onChange={(e) => setQuizName(e.target.value)}
         />
-      </div>
 
-      <div className="mb-4">
-        <label className="block mb-2">Time per Question (seconds):</label>
-        <input
-          type="number"
-          className="border rounded p-2"
-          value={timePerQuestion}
-          onChange={(e) => setTimePerQuestion(e.target.value)}
-        />
-      </div>
+        <div className="mb-4">
+          <label className="block mb-2 font-semibold">
+            Number of Questions:
+          </label>
+          <input
+            type="number"
+            className="border rounded p-2 w-full"
+            value={numQuestions}
+            onChange={(e) => setNumQuestions(Number(e.target.value))} // Convert to number
+          />
+        </div>
 
-      {/* Add questions dynamically */}
-      <div className="mb-4">
-        {questions.map((question, index) => (
-          <div key={index} className="mb-4">
-            <input
-              type="text"
-              className="border rounded p-2 w-full"
-              placeholder={`Question ${index + 1}`}
-              value={question.questionText}
-              onChange={(e) => {
-                const updatedQuestions = [...questions];
-                updatedQuestions[index].questionText = e.target.value;
-                setQuestions(updatedQuestions);
-              }}
-            />
-            {/* Add options for each question */}
-            <div className="mt-2 space-y-2">
-              {question.options.map((option, optIndex) => (
-                <div key={optIndex} className="flex items-center space-x-2">
+        <div className="mb-4">
+          <label className="block mb-2 font-semibold">
+            Time per Question (seconds):
+          </label>
+          <input
+            type="number"
+            className="border rounded p-2 w-full"
+            value={timePerQuestion}
+            onChange={(e) => setTimePerQuestion(e.target.value)}
+          />
+        </div>
+
+        {/* Add questions dynamically */}
+        <div className="mb-4">
+          {questions.map((question, index) => (
+            <div key={index} className="mb-4">
+              <input
+                type="text"
+                className="border rounded p-2 w-full"
+                placeholder={`Question ${index + 1}`}
+                value={question.questionText}
+                onChange={(e) => {
+                  const updatedQuestions = [...questions];
+                  updatedQuestions[index].questionText = e.target.value;
+                  setQuestions(updatedQuestions);
+                }}
+              />
+              {/* Add options for each question */}
+              <div className="mt-2 space-y-2">
+                {question.options.map((option, optIndex) => (
+                  <div key={optIndex} className="flex items-center space-x-2">
+                    <input
+                      type="text"
+                      className="border rounded p-2 w-full"
+                      placeholder={`Option ${optIndex + 1}`}
+                      value={option}
+                      onChange={(e) => {
+                        const updatedQuestions = [...questions];
+                        updatedQuestions[index].options[optIndex] =
+                          e.target.value;
+                        setQuestions(updatedQuestions);
+                      }}
+                    />
+                    <input
+                      type={
+                        question.allowMultipleCorrect ? "checkbox" : "radio"
+                      }
+                      name={`correct-answer-${index}`}
+                      onChange={(e) =>
+                        handleCorrectAnswerChange(
+                          index,
+                          option,
+                          e.target.checked
+                        )
+                      }
+                    />
+                    <label>Correct</label>
+                  </div>
+                ))}
+              </div>
+
+              <div className="mt-2">
+                <label>
                   <input
-                    type="text"
-                    className="border rounded p-2 w-full"
-                    placeholder={`Option ${optIndex + 1}`}
-                    value={option}
+                    type="checkbox"
+                    checked={question.allowMultipleCorrect}
                     onChange={(e) => {
                       const updatedQuestions = [...questions];
-                      updatedQuestions[index].options[optIndex] =
-                        e.target.value;
+                      updatedQuestions[index].allowMultipleCorrect =
+                        e.target.checked;
                       setQuestions(updatedQuestions);
                     }}
-                  />
-                  <input
-                    type={question.allowMultipleCorrect ? "checkbox" : "radio"}
-                    name={`correct-answer-${index}`}
-                    onChange={(e) =>
-                      handleCorrectAnswerChange(index, option, e.target.checked)
-                    }
-                  />
-                  <label>Correct</label>
-                </div>
-              ))}
+                  />{" "}
+                  Allow multiple correct answers
+                </label>
+              </div>
             </div>
+          ))}
+        </div>
+        <div className="flex justify-between">
+          {questions.length < numQuestions && (
+            <button
+              onClick={handleAddQuestion}
+              className="bg-blue-500 hover:bg-blue-800 font-bold text-white px-4 py-2 rounded"
+            >
+              Add Question
+            </button>
+          )}
 
-            <div className="mt-2">
-              <label>
-                <input
-                  type="checkbox"
-                  checked={question.allowMultipleCorrect}
-                  onChange={(e) => {
-                    const updatedQuestions = [...questions];
-                    updatedQuestions[index].allowMultipleCorrect =
-                      e.target.checked;
-                    setQuestions(updatedQuestions);
-                  }}
-                />{" "}
-                Allow multiple correct answers
-              </label>
-            </div>
-          </div>
-        ))}
+          <button
+            onClick={handleSubmitQuiz}
+            className="bg-black font-bold text-white px-4 py-2 rounded"
+          >
+            Submit Quiz
+          </button>
+        </div>
+        {/* Conditionally render "Add Question" button based on the number of questions */}
       </div>
-
-      {/* Conditionally render "Add Question" button based on the number of questions */}
-      {questions.length < numQuestions && (
-        <button
-          onClick={handleAddQuestion}
-          className="bg-blue-500 text-white px-4 py-2 rounded mb-4"
-        >
-          Add Question
-        </button>
-      )}
-
-      <button
-        onClick={handleSubmitQuiz}
-        className="bg-green-500 text-white px-4 py-2 rounded"
-      >
-        Submit Quiz
-      </button>
     </div>
   );
 };
