@@ -25,11 +25,12 @@ const Personal = () => {
   };
 
   return (
-    <div className="mx-4 lg:mx-20">
+    <div className="mx-4 lg:mx-20 flex flex-col justify-center items-center">
       <h2 className="text-xl font-bold mb-4">Your Created Quizzes</h2>
-      <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
-        {userQuizzes.length > 0 ? (
-          userQuizzes.map((quiz, index) => (
+
+      {userQuizzes.length > 0 ? (
+        <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
+          {userQuizzes.map((quiz, index) => (
             <li
               key={index}
               className="bg-white p-6 rounded-lg shadow-lg hover:bg-blue-100 hover:p-5 transition-all duration-200"
@@ -68,11 +69,23 @@ const Personal = () => {
                 </div>
               </div>
             </li>
-          ))
-        ) : (
-          <p>No quizzes created yet.</p>
-        )}
-      </ul>
+          ))}
+        </ul>
+      ) : (
+        <div className="text-center py-8">
+          <h1 className="text-2xl font-semibold text-red-500 mb-4">
+            Oops! No quizzes yet.
+          </h1>
+          <p className="text-gray-600 mb-4">
+            It looks like you haven't created any quizzes yet.
+          </p>
+          <Link to="/create-quiz">
+            <button className="bg-green-500 hover:bg-green-700 text-white px-6 py-3 rounded-lg">
+              Create New Quiz
+            </button>
+          </Link>
+        </div>
+      )}
     </div>
   );
 };

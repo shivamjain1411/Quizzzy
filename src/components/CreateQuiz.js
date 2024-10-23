@@ -105,7 +105,7 @@ const CreateQuiz = () => {
   return (
     <div className="container mx-auto p-4 flex flex-col items-center justify-center">
       <h1 className="text-2xl sm:text-3xl lg:text-4xl mb-6">Quiz Builder</h1>
-      <div className="w-full sm:w-9/12 lg:w-6/12 flex flex-col justify-start px-4 sm:px-8 pb-4 shadow-2xl rounded-lg">
+      <div className="w-full sm:w-9/12 lg:w-6/12 flex flex-col justify-start px-4 sm:px-8 pb-4 shadow-2xl rounded-lg border-2 border-black">
         <h2 className="text-lg sm:text-xl lg:text-2xl font-bold mb-4">
           Create Your Custom Quiz
         </h2>
@@ -126,7 +126,13 @@ const CreateQuiz = () => {
             type="number"
             className="border rounded p-2 w-full"
             value={numQuestions}
-            onChange={(e) => setNumQuestions(Number(e.target.value))}
+            onChange={(e) => {
+              const value = Number(e.target.value);
+              if (value >= 0 || e.target.value === "") {
+                setNumQuestions(value);
+              }
+            }}
+            min="0" // Ensures that numbers cannot be negative
           />
         </div>
 
