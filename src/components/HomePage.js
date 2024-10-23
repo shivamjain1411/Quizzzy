@@ -40,7 +40,7 @@ const HomePage = () => {
               </p>
               <div className="px-5 pt-4">
                 <Link to="/create-quiz">
-                  <button className="bg-blue-500 hover:bg-blue-800 text-white px-6 py-2 rounded-lg w-full">
+                  <button className="bg-blue-500 hover:bg-blue-800 text-white px-6 py-2 rounded-lg w-full mb-2">
                     Create Custom Quiz
                   </button>
                 </Link>

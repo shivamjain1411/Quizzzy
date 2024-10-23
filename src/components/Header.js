@@ -23,24 +23,46 @@ function Header() {
         </Link>
         {/* Hamburger Button for Mobile */}
         <button
-          className="sm:hidden text-black focus:outline-none"
+          className={`sm:hidden text-black focus:outline-none ${
+            isMenuOpen ? "bg-blue-500" : ""
+          } p-2 rounded-md transition-colors duration-300 ease-in-out`}
           onClick={toggleMenu}
         >
-          <svg
-            className="w-6 h-6"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              d="M4 6h16M4 12h16m-7 6h7"
-            />
-          </svg>
+          {isMenuOpen ? (
+            // Close icon when the menu is open
+            <svg
+              className="w-6 h-6 transition-transform duration-300 ease-in-out"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d="M6 18L18 6M6 6l12 12"
+              />
+            </svg>
+          ) : (
+            // Hamburger icon when the menu is closed
+            <svg
+              className="w-6 h-6 transition-transform duration-300 ease-in-out"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d="M4 6h16M4 12h16m-7 6h7"
+              />
+            </svg>
+          )}
         </button>
+
         {/* Navigation Menu */}
         <nav
           className={`sm:flex sm:items-center hidden ${
@@ -101,8 +123,8 @@ function Header() {
 
       {/* Dropdown Menu for Mobile */}
       {isMenuOpen && (
-        <div className=" sm:hidden w-full flex justify-end bg-gray-200 mt-4">
-          <div className="flex flex-col gap-y-2 px-4 pb-4 w-4/12 justify-center text-center">
+        <div className=" sm:hidden w-full flex justify-end bg-gray-200 mt-4 transition-all duration-300 ease-in-out">
+          <div className="flex flex-col gap-y-2 px-4 pb-4 justify-center text-center">
             <Link
               to="/"
               className={`${
