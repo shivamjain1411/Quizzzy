@@ -6,6 +6,7 @@ import SampleQuizPage from "./pages/SampleQuizPage";
 import TakeQuizPage from "./pages/TakeQuizPage";
 import { QuizProvider } from "./context/QuizContext";
 import Layout from "./Layout"; // Import the new Layout component
+import Personal from "./components/Personal";
 
 const App = () => {
   return (
@@ -18,6 +19,7 @@ const App = () => {
             <Route path="create-quiz" element={<CreateQuizPage />} />
             <Route path="sample-quizzes" element={<SampleQuizPage />} />
             <Route path="take-quiz/:quizName" element={<TakeQuizPage />} />
+            <Route path="personal" element={<Personal />} />
           </Route>
         </Routes>
       </Router>

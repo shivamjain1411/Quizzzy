@@ -26,10 +26,10 @@ const HomePage = () => {
 
   return (
     <div className="flex flex-col items-center">
-      <div className="w-screen px-14">
-        <div className="flex justify-between">
+      <div className="w-screen md:px-14 sm:px-8 px-8">
+        <div className="flex flex-col justify-between sm:flex sm:flex-row">
           {/* Left Section: Create Custom Quiz */}
-          <div className="w-3/12 bg-blue-100 mx-8 pt-6 rounded-xl">
+          <div className="sm:w-6/12 mb-4 md:w-3/12 bg-blue-100 lg:ml-8 md:mx-3 sm:mx-2 pt-6 rounded-xl">
             <div>
               <h1 className="px-5 pt-2 text-3xl font-bold">
                 Create a custom quiz
@@ -49,10 +49,10 @@ const HomePage = () => {
           </div>
 
           {/* Right Section: Sample Quizzes */}
-          <div className="w-9/12 bg-gray-300 mx-8 rounded-xl p-6">
+          <div className="sm:w-6/12 md:w-9/12 bg-gray-300 lg:mx-8  md:mx-3 sm:mx-2 rounded-xl p-6">
             <h2 className="text-2xl font-bold mb-4">Sample Quizzes</h2>
 
-            <div className="grid grid-cols-3 gap-4">
+            <div className="grid md:grid-cols-2 sm:grid-cols-1 lg:grid-cols-3 gap-4">
               {/* Render shuffled sample quizzes */}
               {shuffledQuizzes.map((quiz, index) => (
                 <div

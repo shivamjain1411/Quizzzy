@@ -18,29 +18,6 @@ const ResultPage = ({
     return "You might want to review the material and try again.";
   };
 
-  // Get wrong questions by comparing user answers with correct answers
-  // const wrongQuestions = questions?.filter(
-  //   (question, index) => userAnswers[index] !== question.correctAnswer
-  // );
-  // const wrongQuestions = questions?.filter((question, index) => {
-  //   const userAnswer = userAnswers[index];
-  //   const correctAnswer = question.correctAnswer;
-
-  //   // Handle multiple correct answers
-  //   if (Array.isArray(userAnswer)) {
-  //     const userSet = new Set(userAnswer);
-  //     const correctSet = new Set(correctAnswer);
-
-  //     return (
-  //       userSet.size !== correctSet.size ||
-  //       [...userSet].some((answer) => !correctSet.has(answer))
-  //     );
-  //   }
-
-  //   // Handle single correct answer
-  //   return userAnswer !== correctAnswer;
-  // });
-
   return (
     <div className="flex flex-col items-center shadow-2xl p-4 max-w-3xl mx-auto">
       <h2 className="text-2xl font-bold mb-4">Quiz Results</h2>
@@ -85,7 +62,6 @@ const ResultPage = ({
                 Question {index + 1}: {question.question}
               </p>
               <p className="text-red-600 mb-1">
-                {/* Your Answer: {userAnswers[questions.indexOf(question)]} */}
                 Your Answer: {question.yourAnswer}
               </p>
               <p className="text-green-600">

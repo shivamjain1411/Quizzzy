@@ -107,9 +107,9 @@ const TakeQuiz = ({ questions, timePerQuestion }) => {
 
         // Check if the lengths match and the contents are the same
         const allCorrect =
-          sortedSelectedAnswer.length == sortedCorrectAnswers.length &&
+          sortedSelectedAnswer.length === sortedCorrectAnswers.length &&
           sortedSelectedAnswer.every(
-            (answer, idx) => answer == sortedCorrectAnswers[idx]
+            (answer, idx) => answer === sortedCorrectAnswers[idx]
           );
 
         if (allCorrect) {
@@ -120,8 +120,6 @@ const TakeQuiz = ({ questions, timePerQuestion }) => {
             yourAnswer: selectedAnswer.join(", "),
             correctAnswer: correctAnswers.join(", "),
           });
-          setWrongQuestionArray(wrongQuestions);
-          setSelectedAnswerArray(selectedAnswer);
         }
       } else {
         // Single answer case
@@ -136,6 +134,10 @@ const TakeQuiz = ({ questions, timePerQuestion }) => {
         }
       }
     });
+
+    // Update the state after the loop
+    setWrongQuestionArray(wrongQuestions);
+    setSelectedAnswerArray(answers);
 
     setScore(calculatedScore);
     setShowResults(true);
