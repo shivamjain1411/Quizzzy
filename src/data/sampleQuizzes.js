@@ -1021,7 +1021,7 @@ export const sampleQuizzes = [
           "Both A and C",
         ],
         correctAnswers: ["Both A and C"],
-        allowMultipleCorrect: true,
+        allowMultipleCorrect: false,
       },
       {
         questionText: "What is the main purpose of using templates in C++?",
@@ -1122,10 +1122,10 @@ export const sampleQuizzes = [
           "font-family: Arial;",
           "font: Arial;",
           "text-font: Arial;",
-          "font-family: 'Arial';",
+          "font-family-group: 'Arial';",
         ],
-        correctAnswers: ["font-family: Arial;", "font-family: 'Arial';"],
-        allowMultipleCorrect: true,
+        correctAnswers: ["font-family: Arial;"],
+        allowMultipleCorrect: false,
       },
       {
         questionText: "How do you apply a style to multiple elements?",
@@ -1141,8 +1141,8 @@ export const sampleQuizzes = [
       {
         questionText:
           "Which CSS property is used to create space between elements?",
-        options: ["margin", "padding", "spacing", "Both margin and padding"],
-        correctAnswers: ["Both margin and padding"],
+        options: ["margin", "padding", "spacing", "Gap"],
+        correctAnswers: ["margin", "padding"],
         allowMultipleCorrect: true,
       },
       {
