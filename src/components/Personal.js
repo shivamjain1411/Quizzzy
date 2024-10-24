@@ -5,7 +5,6 @@ const Personal = () => {
   const [userQuizzes, setUserQuizzes] = useState([]);
 
   useEffect(() => {
-    // Load quizzes from localStorage
     const storedQuizzes = JSON.parse(localStorage.getItem("userQuizzes")) || [];
     setUserQuizzes(storedQuizzes);
   }, []);
@@ -17,10 +16,8 @@ const Personal = () => {
       (quiz) => quiz.name !== quizName
     );
 
-    // Update localStorage with the remaining quizzes
     localStorage.setItem("userQuizzes", JSON.stringify(updatedQuizzes));
 
-    // Update the state to reflect the deleted quiz
     setUserQuizzes(updatedQuizzes);
   };
 

@@ -13,7 +13,6 @@ const App = () => {
     <QuizProvider>
       <Router>
         <Routes>
-          {/* Use Layout to wrap all routes */}
           <Route path="/" element={<Layout />}>
             <Route index element={<HomePage />} />
             <Route path="create-quiz" element={<CreateQuizPage />} />

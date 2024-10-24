@@ -6,49 +6,45 @@ import { useParams } from "react-router-dom";
 
 const TakeQuizPage = () => {
   const { quiz, setQuiz } = useContext(QuizContext);
-  const { quizName } = useParams(); // Get quiz name from URL
-  const [timePerQuestion, setTimePerQuestion] = useState(null); // Local state for timing
-  const [loading, setLoading] = useState(true); // Loading state
-  const [quizKey, setQuizKey] = useState(0); // Unique key to force re-render
+  const { quizName } = useParams();
+  const [timePerQuestion, setTimePerQuestion] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [quizKey, setQuizKey] = useState(0);
 
   useEffect(() => {
-    // Clear the previous quiz data and timer before loading a new quiz
     setQuiz(null);
-    setTimePerQuestion(null); // Reset the time per question
-    setLoading(true); // Start loading
+    setTimePerQuestion(null);
+    setLoading(true);
 
-    // Load the correct quiz based on the quizName from the URL
     const storedQuizzes = JSON.parse(localStorage.getItem("userQuizzes")) || [];
     const selectedQuiz =
       storedQuizzes.find((q) => q.name === quizName) ||
       sampleQuizzes.find((q) => q.name === quizName);
 
     if (selectedQuiz) {
-      setQuiz(selectedQuiz); // Set new quiz data
+      setQuiz(selectedQuiz);
     }
   }, [quizName, setQuiz]);
 
   useEffect(() => {
     if (quiz) {
-      // Update timePerQuestion once the quiz is fully loaded
       const isSampleQuiz = sampleQuizzes.some((q) => q.name === quizName);
-      setTimePerQuestion(isSampleQuiz ? 60 : quiz.timePerQuestion); // 60 seconds for sample quizzes
-      setLoading(false); // Loading is done
+      setTimePerQuestion(isSampleQuiz ? 60 : quiz.timePerQuestion);
+      setLoading(false);
 
-      // Update the quizKey to force re-rendering of TakeQuiz when the quiz changes
-      setQuizKey((prevKey) => prevKey + 1); // Increment the key to force re-render
+      setQuizKey((prevKey) => prevKey + 1);
     }
   }, [quiz, quizName]);
 
   if (loading || !quiz || !quiz.questions || timePerQuestion === null) {
-    return <div className="container mx-auto p-4">Loading quiz...</div>; // Wait until the quiz and timePerQuestion are ready
+    return <div className="container mx-auto p-4">Loading quiz...</div>;
   }
 
   return (
     <TakeQuiz
-      key={quizKey} // Force re-render of TakeQuiz by changing the key
+      key={quizKey}
       questions={quiz.questions}
-      timePerQuestion={timePerQuestion} // Pass the correct time per question
+      timePerQuestion={timePerQuestion}
     />
   );
 };

@@ -5,8 +5,8 @@ import { QuizContext } from "../context/QuizContext";
 const CreateQuiz = () => {
   const [quizName, setQuizName] = useState("");
   const [questions, setQuestions] = useState([]);
-  const [numQuestions, setNumQuestions] = useState(1); // User-specified number of questions
-  const [timePerQuestion, setTimePerQuestion] = useState(30); // Default time
+  const [numQuestions, setNumQuestions] = useState(1);
+  const [timePerQuestion, setTimePerQuestion] = useState(30);
   const { setQuiz } = useContext(QuizContext);
   const navigate = useNavigate();
 
@@ -132,7 +132,7 @@ const CreateQuiz = () => {
                 setNumQuestions(value);
               }
             }}
-            min="0" // Ensures that numbers cannot be negative
+            min="0"
           />
         </div>
 

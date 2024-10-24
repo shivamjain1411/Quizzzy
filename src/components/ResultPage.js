@@ -49,7 +49,6 @@ const ResultPage = ({
         </p>
       </div>
 
-      {/* Questions Review Section */}
       <div className="mt-8 w-full">
         <h3 className="text-xl font-semibold mb-4">Questions You Got Wrong:</h3>
         <div className="space-y-6">

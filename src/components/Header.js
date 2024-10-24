@@ -13,7 +13,6 @@ function Header() {
   return (
     <header className="bg-gray-200 px-4 py-2 sm:px-6 sm:py-4 md:px-10 lg:px-20 rounded-lg mb-4 relative z-10 mx-6 md:mx-14 lg:mx-20">
       <div className="flex justify-between items-center max-w-screen-xl mx-auto">
-        {/* Logo */}
         <Link to="/">
           <img
             src={quizLogo}
@@ -21,7 +20,6 @@ function Header() {
             alt="Quiz Logo"
           />
         </Link>
-        {/* Hamburger Button for Mobile */}
         <button
           className={`sm:hidden text-black focus:outline-none ${
             isMenuOpen ? "bg-blue-500" : ""
@@ -29,7 +27,6 @@ function Header() {
           onClick={toggleMenu}
         >
           {isMenuOpen ? (
-            // Close icon when the menu is open
             <svg
               className="w-6 h-6 transition-transform duration-300 ease-in-out"
               fill="none"
@@ -45,7 +42,6 @@ function Header() {
               />
             </svg>
           ) : (
-            // Hamburger icon when the menu is closed
             <svg
               className="w-6 h-6 transition-transform duration-300 ease-in-out"
               fill="none"
@@ -62,8 +58,6 @@ function Header() {
             </svg>
           )}
         </button>
-
-        {/* Navigation Menu */}
         <nav
           className={`sm:flex sm:items-center hidden ${
             isMenuOpen ? "block" : "hidden"
@@ -120,8 +114,6 @@ function Header() {
           </div>
         </nav>
       </div>
-
-      {/* Dropdown Menu for Mobile */}
       {isMenuOpen && (
         <div className=" sm:hidden w-full flex justify-end bg-gray-200 mt-4 transition-all duration-300 ease-in-out">
           <div className="flex flex-col gap-y-2 px-4 pb-4 justify-center text-center">
